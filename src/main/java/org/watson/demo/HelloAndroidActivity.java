@@ -1,25 +1,57 @@
 package org.watson.demo;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.view.WindowManager;
+import org.anddev.andengine.engine.Engine;
+import org.anddev.andengine.engine.camera.Camera;
+import org.anddev.andengine.engine.options.EngineOptions;
+import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
+import org.anddev.andengine.entity.scene.Scene;
+import org.anddev.andengine.entity.scene.background.ColorBackground;
+import org.anddev.andengine.entity.text.Text;
+import org.anddev.andengine.opengl.font.Font;
+import org.anddev.andengine.opengl.font.FontFactory;
+import org.anddev.andengine.opengl.texture.Texture;
+import org.anddev.andengine.opengl.texture.TextureOptions;
+import org.anddev.andengine.ui.activity.BaseGameActivity;
+import org.watson.demo.game.Board;
 
-public class HelloAndroidActivity extends Activity {
+public class HelloAndroidActivity extends BaseGameActivity {
+    private Board board;
+    private Camera camera;
+    private Font font;
+    private Texture fontTexture;
 
-    private static String TAG = "demo";
-
-    /**
-     * Called when the activity is first created.
-     * @param savedInstanceState If the activity is being re-initialized after 
-     * previously being shut down then this Bundle contains the data it most 
-     * recently supplied in onSaveInstanceState(Bundle). <b>Note: Otherwise it is null.</b>
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-		Log.i(TAG, "onCreate");
-        setContentView(R.layout.main);
+    public Engine onLoadEngine() {
+        WindowManager mWinMgr = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        board = new Board(mWinMgr.getDefaultDisplay().getWidth(), mWinMgr.getDefaultDisplay().getHeight());
+        this.camera = new Camera(0, 0, board.getWidth(), board.getHeight());
+        return new Engine(new EngineOptions(true, EngineOptions.ScreenOrientation.LANDSCAPE,
+                new RatioResolutionPolicy(board.getWidth(), board.getHeight()), this.camera));
     }
 
+    public void onLoadResources() {
+        this.fontTexture = new Texture(256, 256, TextureOptions.BILINEAR);
+        this.font = FontFactory.create(this.fontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 48, true, Color.BLACK);
+        mEngine.getFontManager().loadFont(font);
+        mEngine.getTextureManager().loadTexture(fontTexture);
+    }
+
+    public Scene onLoadScene() {
+        String greeting = "Hello World!";
+        float x = (board.getWidth() / 2) - (font.getStringWidth(greeting) / 2);
+        float y = board.getHeight() / 2 - (font.getLineHeight() / 2);
+
+        Scene scene = new Scene();
+        scene.attachChild(new Text(x, y, font, greeting));
+        scene.setBackground(new ColorBackground(0, 0, 0.8784f));
+        return scene;
+    }
+
+    public void onLoadComplete() {
+
+    }
 }
 
