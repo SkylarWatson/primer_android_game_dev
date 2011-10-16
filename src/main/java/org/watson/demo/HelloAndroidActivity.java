@@ -12,17 +12,14 @@ import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.entity.text.Text;
 import org.anddev.andengine.opengl.font.Font;
-import org.anddev.andengine.opengl.font.FontFactory;
-import org.anddev.andengine.opengl.texture.Texture;
-import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.watson.demo.game.Board;
+import org.watson.demo.resources.ResourceLoader;
 
 public class HelloAndroidActivity extends BaseGameActivity {
     private Board board;
     private Camera camera;
     private Font font;
-    private Texture fontTexture;
 
     public Engine onLoadEngine() {
         WindowManager mWinMgr = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -33,10 +30,8 @@ public class HelloAndroidActivity extends BaseGameActivity {
     }
 
     public void onLoadResources() {
-        this.fontTexture = new Texture(256, 256, TextureOptions.BILINEAR);
-        this.font = FontFactory.create(this.fontTexture, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 48, true, Color.BLACK);
-        mEngine.getFontManager().loadFont(font);
-        mEngine.getTextureManager().loadTexture(fontTexture);
+        ResourceLoader resourceLoader = new ResourceLoader(this);
+        font = resourceLoader.loadFontResource(48, Color.BLACK, Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
     }
 
     public Scene onLoadScene() {
