@@ -31,7 +31,7 @@ public class HelloAndroidActivity extends BaseGameActivity {
 
     public void onLoadResources() {
         ResourceLoader resourceLoader = new ResourceLoader(this);
-        font = resourceLoader.loadFontResource(48, Color.BLACK, Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        font = resourceLoader.loadFontResource(48, Color.WHITE, Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
     }
 
     public Scene onLoadScene() {
@@ -41,7 +41,7 @@ public class HelloAndroidActivity extends BaseGameActivity {
 
         Scene scene = new Scene();
         scene.attachChild(new Text(x, y, font, greeting));
-        scene.setBackground(new ColorBackground(0, 0, 0.8784f));
+        scene.setBackground(new ColorBackground(0, 0, 0));
         return scene;
     }
 
