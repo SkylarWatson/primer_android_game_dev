@@ -10,6 +10,7 @@ import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
+import org.watson.demo.domain.WhiteBox;
 import org.watson.demo.game.Board;
 import org.watson.demo.resources.ResourceLoader;
 import org.watson.demo.resources.ResourceRepository;
@@ -33,10 +34,14 @@ public class GameActivity extends BaseGameActivity {
     }
 
     public Scene onLoadScene() {
-        float y = board.getHeight() - repository.getSprite().getHeight();
         Scene scene = new Scene();
-        scene.attachChild(new Sprite(0, y, repository.getSprite()));
-        scene.setBackground(new ColorBackground(0, 0, 0));
+
+        float y = board.getHeight() - repository.getSprite().getHeight();
+        WhiteBox whiteBox = new WhiteBox(0, y, repository.getSprite());
+        scene.attachChild(whiteBox.asSprite());
+        whiteBox.move(scene, board.getWidth());
+//        scene.attachChild(new Sprite(0, y, repository.getSprite()));
+//        scene.setBackground(new ColorBackground(0, 0, 0));
         return scene;
     }
 
