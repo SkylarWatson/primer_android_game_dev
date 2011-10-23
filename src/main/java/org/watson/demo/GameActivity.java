@@ -37,7 +37,7 @@ public class GameActivity extends BaseGameActivity {
         final Scene scene = new Scene();
         WhiteBox whiteBox = new WhiteBox(0, board.yOffset(repository.getSprite()), repository.getSprite());
 
-        final MovementUpdateHandler movement = new MovementUpdateHandler(whiteBox.asSprite(), board.getHeight());
+        final MovementUpdateHandler movement = new MovementUpdateHandler(whiteBox.asSprite(), board.getWidth());
         movement.setOnComplete(new IOnComplete() {
             @Override
             public void onComplete() {
@@ -46,7 +46,7 @@ public class GameActivity extends BaseGameActivity {
         });
 
         scene.attachChild(whiteBox.asSprite());
-        scene.registerUpdateHandler(new MovementUpdateHandler(whiteBox.asSprite(), board.getWidth()));
+        scene.registerUpdateHandler(movement);
         return scene;
     }
 
