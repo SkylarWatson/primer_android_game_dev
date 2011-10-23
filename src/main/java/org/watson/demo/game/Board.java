@@ -1,5 +1,7 @@
 package org.watson.demo.game;
 
+import org.anddev.andengine.opengl.texture.region.TextureRegion;
+
 public class Board {
     private float width;
     private float height;
@@ -15,5 +17,13 @@ public class Board {
 
     public float getHeight() {
         return height;
+    }
+
+    public float yOffset(TextureRegion textureRegion) {
+        return height - textureRegion.getHeight();
+    }
+
+    public float xOffset(TextureRegion textureRegion) {
+        return width - textureRegion.getHeight();
     }
 }

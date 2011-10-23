@@ -7,11 +7,11 @@ import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
-import org.anddev.andengine.entity.scene.background.ColorBackground;
-import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.watson.demo.domain.WhiteBox;
 import org.watson.demo.game.Board;
+import org.watson.demo.handlers.IOnComplete;
+import org.watson.demo.handlers.MovementUpdateHandler;
 import org.watson.demo.resources.ResourceLoader;
 import org.watson.demo.resources.ResourceRepository;
 
@@ -34,14 +34,19 @@ public class GameActivity extends BaseGameActivity {
     }
 
     public Scene onLoadScene() {
-        Scene scene = new Scene();
+        final Scene scene = new Scene();
+        WhiteBox whiteBox = new WhiteBox(0, board.yOffset(repository.getSprite()), repository.getSprite());
 
-        float y = board.getHeight() - repository.getSprite().getHeight();
-        WhiteBox whiteBox = new WhiteBox(0, y, repository.getSprite());
+        final MovementUpdateHandler movement = new MovementUpdateHandler(whiteBox.asSprite(), board.getHeight());
+        movement.setOnComplete(new IOnComplete() {
+            @Override
+            public void onComplete() {
+                scene.unregisterUpdateHandler(movement);
+            }
+        });
+
         scene.attachChild(whiteBox.asSprite());
-        whiteBox.move(scene, board.getWidth());
-//        scene.attachChild(new Sprite(0, y, repository.getSprite()));
-//        scene.setBackground(new ColorBackground(0, 0, 0));
+        scene.registerUpdateHandler(new MovementUpdateHandler(whiteBox.asSprite(), board.getWidth()));
         return scene;
     }
 
