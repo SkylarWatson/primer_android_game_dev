@@ -22,12 +22,4 @@ public class ResourceLoader {
         context.getEngine().getTextureManager().loadTexture(texture);
         return textureRegion;
     }
-
-    public Font loadFontResource(int size, int color, Typeface typeface) {
-        Texture texture = new Texture(256, 256, TextureOptions.BILINEAR);
-        Font font = FontFactory.create(texture, typeface, size, true, color);
-        context.getEngine().getFontManager().loadFont(font);
-        context.getEngine().getTextureManager().loadTexture(texture);
-        return font;
-    }
 }
