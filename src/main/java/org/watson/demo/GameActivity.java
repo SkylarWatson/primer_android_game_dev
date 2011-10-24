@@ -50,6 +50,7 @@ public class GameActivity extends BaseGameActivity {
 
         scene.attachChild(whiteBox.asSprite());
         scene.registerUpdateHandler(movement);
+
         scene.setOnSceneTouchListener(new Scene.IOnSceneTouchListener() {
             public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
                 final JumpUpdateHandler jumpUpdateHandler = new JumpUpdateHandler();

@@ -1,10 +1,8 @@
 package org.watson.demo.handlers;
 
-import org.anddev.andengine.engine.handler.IUpdateHandler;
 import org.anddev.andengine.entity.sprite.Sprite;
 
-public class MovementUpdateHandler implements IUpdateHandler {
-    private IOnComplete onComplete;
+public class MovementUpdateHandler extends UpdateHandler {
     private Sprite sprite;
     private float to;
 
@@ -20,14 +18,5 @@ public class MovementUpdateHandler implements IUpdateHandler {
         } else {
             onComplete.onComplete();
         }
-    }
-
-    @Override
-    public void reset() {
-
-    }
-
-    public void setOnComplete(IOnComplete onComplete) {
-        this.onComplete = onComplete;
     }
 }
