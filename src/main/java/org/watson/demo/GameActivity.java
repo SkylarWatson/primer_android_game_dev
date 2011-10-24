@@ -48,14 +48,6 @@ public class GameActivity extends BaseGameActivity {
             }
         });
 
-//        final JumpUpdateHandler jumpUpdateHandler = new JumpUpdateHandler();
-//        jumpUpdateHandler.setOnComplete(new IOnComplete() {
-//            @Override
-//            public void onComplete() {
-//                scene.unregisterUpdateHandler(jumpUpdateHandler);
-//            }
-//        });
-
         scene.attachChild(whiteBox.asSprite());
         scene.registerUpdateHandler(movement);
         scene.setOnSceneTouchListener(new Scene.IOnSceneTouchListener() {
