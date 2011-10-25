@@ -3,8 +3,8 @@ package org.watson.demo.domain;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.watson.demo.game.Board;
-import org.watson.demo.modifiers.JumpModifier;
-import org.watson.demo.modifiers.MoveModifier;
+import org.watson.demo.modifiers.JumpEntityModifier;
+import org.watson.demo.modifiers.MoveEntityModifier;
 
 public class WhiteBox {
     private Sprite sprite;
@@ -18,10 +18,10 @@ public class WhiteBox {
     }
 
     public void move(float to) {
-        sprite.registerEntityModifier(new MoveModifier(to));
+        sprite.registerEntityModifier(new MoveEntityModifier(to));
     }
 
     public void jump(Board board) {
-        sprite.registerEntityModifier(new JumpModifier(board, sprite.getX(), sprite.getY()));
+        sprite.registerEntityModifier(new JumpEntityModifier(board, sprite.getX(), sprite.getY()));
     }
 }

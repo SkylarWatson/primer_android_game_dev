@@ -9,10 +9,10 @@ import org.watson.demo.movement.jump.JumpCurveCalulator;
 
 import java.util.LinkedList;
 
-public class JumpModifier extends EntityModifier {
+public class JumpEntityModifier extends EntityModifier {
     private LinkedList<Point> points;
 
-    public JumpModifier(Board board, float startX, float startY) {
+    public JumpEntityModifier(Board board, float startX, float startY) {
         points = new JumpCurveCalulator().getJumpMovements(board, startX, startY);
     }
 

@@ -3,17 +3,22 @@ package org.watson.demo.modifiers;
 import org.anddev.andengine.entity.IEntity;
 import org.anddev.andengine.entity.modifier.EntityModifier;
 import org.anddev.andengine.entity.modifier.IEntityModifier;
+import org.watson.demo.game.Board;
 
-public class MoveModifier extends EntityModifier {
+public class MoveEntityModifier extends EntityModifier {
     private float to;
 
-    public MoveModifier(float to) {
+    public MoveEntityModifier(float to) {
         this.to = to;
     }
 
     @Override
     public float onUpdate(float secondsElapsed, IEntity entity) {
-        if(entity.getX() <= to) entity.setPosition(entity.getX() + 0.5f, entity.getY());
+        if(to >= entity.getX()) {
+            entity.setPosition(entity.getX() + 0.5f, entity.getY());
+        } else {
+            entity.setPosition(entity.getInitialX(), entity.getInitialY());
+        }
         return 0;
     }
 
