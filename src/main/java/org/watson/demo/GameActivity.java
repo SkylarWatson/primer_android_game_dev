@@ -11,9 +11,6 @@ import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.watson.demo.domain.WhiteBox;
 import org.watson.demo.game.Board;
-import org.watson.demo.handlers.IOnComplete;
-import org.watson.demo.handlers.JumpUpdateHandler;
-import org.watson.demo.handlers.MovementUpdateHandler;
 import org.watson.demo.resources.ResourceLoader;
 import org.watson.demo.resources.ResourceRepository;
 
@@ -26,8 +23,9 @@ public class GameActivity extends BaseGameActivity {
         WindowManager mWinMgr = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         board = new Board(mWinMgr.getDefaultDisplay().getWidth(), mWinMgr.getDefaultDisplay().getHeight());
         this.camera = new Camera(0, 0, board.getWidth(), board.getHeight());
+
         return new Engine(new EngineOptions(true, EngineOptions.ScreenOrientation.LANDSCAPE,
-                new RatioResolutionPolicy(board.getWidth(), board.getHeight()), this.camera));
+               new RatioResolutionPolicy(board.getWidth(), board.getHeight()), this.camera));
     }
 
     public void onLoadResources() {
@@ -36,40 +34,21 @@ public class GameActivity extends BaseGameActivity {
     }
 
     public Scene onLoadScene() {
-        final Scene scene = new Scene();
         final WhiteBox whiteBox = new WhiteBox(0, board.yOffset(repository.getSprite()), repository.getSprite());
+        whiteBox.move(board.getWidth());
 
-        final MovementUpdateHandler movement = new MovementUpdateHandler(whiteBox.asSprite(), board.getWidth());
-        movement.setOnComplete(new IOnComplete() {
-            @Override
-            public void onComplete() {
-                scene.unregisterUpdateHandler(movement);
-                whiteBox.asSprite().setPosition(0, board.yOffset(repository.getSprite()));
-            }
-        });
-
+        Scene scene = new Scene();
         scene.attachChild(whiteBox.asSprite());
-        scene.registerUpdateHandler(movement);
-
         scene.setOnSceneTouchListener(new Scene.IOnSceneTouchListener() {
-            public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-                final JumpUpdateHandler jumpUpdateHandler = new JumpUpdateHandler();
-                jumpUpdateHandler.setOnComplete(new IOnComplete() {
-                    @Override
-                    public void onComplete() {
-                        scene.unregisterUpdateHandler(jumpUpdateHandler);
-                    }
-                });
-                jumpUpdateHandler.init(board, whiteBox.asSprite());
-                scene.registerUpdateHandler(jumpUpdateHandler);
+            @Override
+            public boolean onSceneTouchEvent(Scene scene, TouchEvent touchEvent) {
+                whiteBox.jump(board);
                 return true;
             }
         });
-
         return scene;
     }
 
     @Override
-    public void onLoadComplete() {
-    }
+    public void onLoadComplete() {}
 }

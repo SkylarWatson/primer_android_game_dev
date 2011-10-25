@@ -6,7 +6,7 @@ import org.watson.demo.math.Point;
 
 import java.util.LinkedList;
 
-public class JumpAction {
+public class JumpCurveCalulator {
     public LinkedList<Point> getJumpMovements(Board board, float x, float y) {
         float halfWayForControl = (x + (x + (board.getWidth()) / 3)) / 2;
         return new BezierCurve().getCalculatedPoints(
