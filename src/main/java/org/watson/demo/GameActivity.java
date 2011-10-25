@@ -7,7 +7,6 @@ import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
-import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.watson.demo.domain.WhiteBox;
 import org.watson.demo.game.Board;
@@ -39,13 +38,6 @@ public class GameActivity extends BaseGameActivity {
 
         Scene scene = new Scene();
         scene.attachChild(whiteBox.asSprite());
-        scene.setOnSceneTouchListener(new Scene.IOnSceneTouchListener() {
-            @Override
-            public boolean onSceneTouchEvent(Scene scene, TouchEvent touchEvent) {
-                whiteBox.jump(board);
-                return true;
-            }
-        });
         return scene;
     }
 
