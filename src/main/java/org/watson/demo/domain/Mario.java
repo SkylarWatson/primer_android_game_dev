@@ -8,10 +8,10 @@ import org.watson.demo.modifiers.MoveEntityModifier;
 
 public class Mario {
     private AnimatedSprite sprite;
+    private static final float GROUND_CUSHION = 8.5f;
 
     public Mario(float x, float y, TiledTextureRegion textureRegion) {
-        sprite = new AnimatedSprite(x, y, textureRegion);
-        sprite.setScale(1.4f);
+        sprite = new AnimatedSprite(x, y - GROUND_CUSHION, textureRegion);
         animateWalk();
     }
 
