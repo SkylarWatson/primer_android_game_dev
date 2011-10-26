@@ -12,18 +12,6 @@ public class Mario {
     public Mario(float x, float y, TiledTextureRegion textureRegion) {
         sprite = new AnimatedSprite(x, y, textureRegion);
         sprite.setScale(1.4f);
-
-//        float newWidth = sprite.getWidth() * 2;
-//        float newHeight = sprite.getHeight() * 2;
-
-//        sprite.setScale();
-//
-//        sprite.setWidth(newWidth);
-//        sprite.setHeight(newHeight);
-//        sprite.setPosition(x, y - sprite.getHeight());
-//
-//        System.out.println("Width: " + sprite.getWidth());
-//        System.out.println("Height: " + sprite.getHeight());
         animateWalk();
     }
 
