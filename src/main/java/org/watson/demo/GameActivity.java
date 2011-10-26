@@ -9,7 +9,7 @@ import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolic
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
-import org.watson.demo.domain.WhiteBox;
+import org.watson.demo.domain.Mario;
 import org.watson.demo.game.Board;
 import org.watson.demo.resources.ResourceLoader;
 import org.watson.demo.resources.ResourceRepository;
@@ -34,15 +34,15 @@ public class GameActivity extends BaseGameActivity {
     }
 
     public Scene onLoadScene() {
-        final WhiteBox whiteBox = new WhiteBox(0, board.yOffset(repository.getSprite()), repository.getSprite());
-        whiteBox.move(board.getWidth());
+        final Mario mario = new Mario(0, board.yOffset(repository.getSprite()), repository.getSprite());
+        mario.move(board.getWidth());
 
         Scene scene = new Scene();
-        scene.attachChild(whiteBox.asSprite());
+        scene.attachChild(mario.asSprite());
         scene.setOnSceneTouchListener(new Scene.IOnSceneTouchListener() {
             @Override
             public boolean onSceneTouchEvent(Scene scene, TouchEvent touchEvent) {
-                whiteBox.jump(board);
+                mario.jump(board);
                 return true;
             }
         });

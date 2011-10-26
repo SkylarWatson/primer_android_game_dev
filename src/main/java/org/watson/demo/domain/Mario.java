@@ -6,11 +6,24 @@ import org.watson.demo.game.Board;
 import org.watson.demo.modifiers.JumpEntityModifier;
 import org.watson.demo.modifiers.MoveEntityModifier;
 
-public class WhiteBox {
+public class Mario {
     private AnimatedSprite sprite;
 
-    public WhiteBox(float x, float y, TiledTextureRegion textureRegion) {
+    public Mario(float x, float y, TiledTextureRegion textureRegion) {
         sprite = new AnimatedSprite(x, y, textureRegion);
+        sprite.setScale(1.4f);
+
+//        float newWidth = sprite.getWidth() * 2;
+//        float newHeight = sprite.getHeight() * 2;
+
+//        sprite.setScale();
+//
+//        sprite.setWidth(newWidth);
+//        sprite.setHeight(newHeight);
+//        sprite.setPosition(x, y - sprite.getHeight());
+//
+//        System.out.println("Width: " + sprite.getWidth());
+//        System.out.println("Height: " + sprite.getHeight());
         animateWalk();
     }
 
