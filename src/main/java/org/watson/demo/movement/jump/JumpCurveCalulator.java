@@ -12,7 +12,7 @@ public class JumpCurveCalulator {
         return new BezierCurve().getCalculatedPoints(
                 new Point(x, y),
                 new Point(x + (board.getWidth() / 3), y),
-                new Point(halfWayForControl, board.getHeight() / 2),
-                new Point(halfWayForControl, board.getHeight() / 2));
+                new Point(halfWayForControl, board.getHeight() / 1.4),
+                new Point(halfWayForControl, board.getHeight() / 1.4));
     }
 }

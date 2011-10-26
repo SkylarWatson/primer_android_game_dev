@@ -2,6 +2,7 @@ package org.watson.demo.game;
 
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 public class Board {
     private float width;
@@ -24,8 +25,8 @@ public class Board {
         return width - (sprite.getHeight());
     }
 
-    public float yOffset(TextureRegion textureRegion) {
-        return height - textureRegion.getHeight();
+    public float yOffset(TiledTextureRegion textureRegion) {
+        return height - textureRegion.getTileHeight();
     }
 
     public float xOffset(Sprite sprite) {

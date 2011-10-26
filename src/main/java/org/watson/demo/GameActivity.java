@@ -30,7 +30,7 @@ public class GameActivity extends BaseGameActivity {
 
     public void onLoadResources() {
         repository = new ResourceRepository();
-        repository.setSprite(new ResourceLoader(this).loadResource(64, 64, "gfx/white-square.jpg"));
+        repository.setSprite(new ResourceLoader(this).loadResource(512, 512, "gfx/sheet.png", 10, 9));
     }
 
     public Scene onLoadScene() {

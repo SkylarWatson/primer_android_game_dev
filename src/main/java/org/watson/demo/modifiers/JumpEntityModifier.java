@@ -11,6 +11,7 @@ import java.util.LinkedList;
 
 public class JumpEntityModifier extends EntityModifier {
     private LinkedList<Point> points;
+    private DoneJumping doneJumping;
 
     public JumpEntityModifier(Board board, float startX, float startY) {
         points = new JumpCurveCalulator().getJumpMovements(board, startX, startY);
@@ -39,11 +40,20 @@ public class JumpEntityModifier extends EntityModifier {
             entity.setPosition((float) point.getX(), (float) point.getY());
         } else {
             entity.unregisterEntityModifier(this);
+            if(doneJumping != null) doneJumping.whenDone();
         }
         return 0;
     }
 
+    public void setDoneJumping(DoneJumping doneJumping) {
+        this.doneJumping = doneJumping;
+    }
+
     private boolean isJumping() {
         return points.size() != 0;
-    }    
+    }
+
+    public interface DoneJumping {
+        public void whenDone();
+    }
 }
