@@ -2,6 +2,7 @@ package org.watson.demo;
 
 import android.content.Context;
 import android.view.WindowManager;
+import org.anddev.andengine.audio.sound.Sound;
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.options.EngineOptions;
@@ -30,20 +31,21 @@ public class GameActivity extends BaseGameActivity {
         this.camera = new Camera(0, 0, board.getWidth(), board.getHeight());
 
         return new Engine(new EngineOptions(true, EngineOptions.ScreenOrientation.LANDSCAPE,
-                new RatioResolutionPolicy(board.getWidth(), board.getHeight()), this.camera));
+                new RatioResolutionPolicy(board.getWidth(), board.getHeight()), this.camera).setNeedsSound(true).setNeedsMusic(true));
     }
 
     public void onLoadResources() {
         repository = new ResourceRepository();
         final ResourceLoader resourceLoader = new ResourceLoader(this);
+
         repository.setSprite(resourceLoader.loadTiledResource(512, 512, "gfx/sheet.png", 10, 9));
         repository.setBackgroundTextureRegion(resourceLoader.loadResource(1024, 1024, "gfx/background.jpg"));
+        repository.setBackgroundMusic(resourceLoader.loadMusicResource("sounds/background.ogg"));
     }
 
     public Scene onLoadScene() {
         final Mario mario = new Mario(0, board.yOffset(repository.getSprite()), repository.getSprite());
         mario.move(board.getWidth());
-
 
 
         Scene scene = new Scene();
@@ -56,10 +58,18 @@ public class GameActivity extends BaseGameActivity {
                 return true;
             }
         });
+
+        this.runOnUpdateThread(new Runnable() {
+            @Override
+            public void run() {
+                repository.getBackgroundMusic().play();
+            }
+        });
+
         return scene;
     }
 
-        public EntityBackground loadBackground() {
+    public EntityBackground loadBackground() {
         Sprite backgroundSprite = new Sprite(0, 0, board.getWidth(), board.getHeight(), repository.getBackgroundTextureRegion()) {
             @Override
             protected void onInitDraw(final GL10 pGL) {
@@ -74,5 +84,6 @@ public class GameActivity extends BaseGameActivity {
 
     @Override
     public void onLoadComplete() {
+
     }
 }
