@@ -9,6 +9,7 @@ public class ResourceRepository {
     private TiledTextureRegion sprite;
     private TextureRegion backgroundTextureRegion;
     private Music backgroundMusic;
+    private Sound jumpSound;
 
     public Music getBackgroundMusic() {
         return backgroundMusic;
@@ -32,5 +33,13 @@ public class ResourceRepository {
 
     public TextureRegion getBackgroundTextureRegion() {
         return backgroundTextureRegion;
+    }
+
+    public void setJumpSound(Sound jumpSound) {
+        this.jumpSound = jumpSound;
+    }
+
+    public Sound getJumpSound() {
+        return jumpSound;
     }
 }

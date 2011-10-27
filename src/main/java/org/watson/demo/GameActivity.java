@@ -41,6 +41,7 @@ public class GameActivity extends BaseGameActivity {
         repository.setSprite(resourceLoader.loadTiledResource(512, 512, "gfx/sheet.png", 10, 9));
         repository.setBackgroundTextureRegion(resourceLoader.loadResource(1024, 1024, "gfx/background.jpg"));
         repository.setBackgroundMusic(resourceLoader.loadMusicResource("sounds/background.ogg"));
+        repository.setJumpSound(resourceLoader.loadSoundResource("sounds/jump.ogg"));
     }
 
     public Scene onLoadScene() {
@@ -55,6 +56,10 @@ public class GameActivity extends BaseGameActivity {
             @Override
             public boolean onSceneTouchEvent(Scene scene, TouchEvent touchEvent) {
                 mario.jump(board);
+                Sound jumpSound = repository.getJumpSound();
+                jumpSound.play();
+                jumpSound.setVolume(repository.getBackgroundMusic().getVolume() + 2);
+
                 return true;
             }
         });
