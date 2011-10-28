@@ -2,16 +2,19 @@ package org.watson.demo.domain;
 
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
+import org.watson.demo.FrameDurations;
 import org.watson.demo.game.Board;
 import org.watson.demo.modifiers.JumpEntityModifier;
 import org.watson.demo.modifiers.MoveEntityModifier;
 
 public class Mario {
-    private AnimatedSprite sprite;
     private static final float GROUND_CUSHION = 8.5f;
+    private AnimatedSprite sprite;
+    private FrameDurations frameDurations;
 
     public Mario(float x, float y, TiledTextureRegion textureRegion) {
         sprite = new AnimatedSprite(x, y - GROUND_CUSHION, textureRegion);
+        frameDurations = new FrameDurations();
         animateWalk();
     }
 
@@ -39,18 +42,10 @@ public class Mario {
     }
 
     private void animateWalk() {
-        long[] huh = new long[4];
-        for (int i = 0; i <= 3; ++i) {
-            huh[i] = 85;
-        }
-        sprite.animate(huh, 46, 49, true);
+        sprite.animate(frameDurations.getDurations(4, 85), 46, 49, true);
     }
 
     private void animateJump() {
-        long[] huh = new long[2];
-        for (int i = 0; i <= 1; ++i) {
-            huh[i] = 100;
-        }
-        sprite.animate(huh, 57, 58, true);
+        sprite.animate(frameDurations.getDurations(2, 100), 57, 58, true);
     }
 }
