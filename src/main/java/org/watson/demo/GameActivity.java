@@ -35,9 +35,8 @@ public class GameActivity extends BaseGameActivity {
     }
 
     public void onLoadResources() {
+        ResourceLoader resourceLoader = new ResourceLoader(this);
         repository = new ResourceRepository();
-        final ResourceLoader resourceLoader = new ResourceLoader(this);
-
         repository.setSprite(resourceLoader.loadTiledResource(512, 512, "gfx/sheet.png", 10, 9));
         repository.setBackgroundTextureRegion(resourceLoader.loadResource(1024, 1024, "gfx/background.jpg"));
         repository.setBackgroundMusic(resourceLoader.loadMusicResource("sounds/background.ogg"));
@@ -47,7 +46,6 @@ public class GameActivity extends BaseGameActivity {
     public Scene onLoadScene() {
         final Mario mario = new Mario(0, board.yOffset(repository.getSprite()), repository.getSprite());
         mario.move(board.getWidth());
-
 
         Scene scene = new Scene();
         scene.setBackground(loadBackground());
@@ -88,7 +86,5 @@ public class GameActivity extends BaseGameActivity {
     }
 
     @Override
-    public void onLoadComplete() {
-
-    }
+    public void onLoadComplete() {}
 }
